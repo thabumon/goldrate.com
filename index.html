@@ -1,27 +1,32 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GoldRates — Live Gold Prices & Calculator</title>
-  <meta name="description" content="Real-time gold prices across karats with currency converter and price calculator.">
-  <link rel="icon" href="assets/favicon.png">
-
-  <!-- Inter font (clean, modern) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>GoldRates — Live Gold Prices &amp; Calculator</title>
+<meta content="Real-time gold prices across karats with currency converter and price calculator." name="description"/>
+<!-- Pass API endpoint here (preferred). Put your full URL -->
+<meta content="https://goldapi-my1rlotopzv3-io" name="gold-api"/>
+<!-- Basic security hardening -->
+<meta content="strict-origin-when-cross-origin" http-equiv="Referrer-Policy"/>
+<meta content="nosniff" http-equiv="X-Content-Type-Options"/>
+<meta content="SAMEORIGIN" http-equiv="X-Frame-Options"/>
+<meta content="default-src 'self' https:; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https:; script-src 'self' https://cdn.tailwindcss.com https://s3.tradingview.com 'unsafe-inline'; connect-src 'self' https:; frame-ancestors 'self';" http-equiv="Content-Security-Policy"/>
+<link href="assets/favicon.png" rel="icon"/>
+<!-- Inter font -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
     tailwind.config = {
       theme: {
         fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
         extend: {
-          colors: {
-            brand: { 50:'#FFF7E6', 100:'#FCEFD6', 400:'#F4B740', 500:'#F59E0B', 600:'#D97706' }
-          },
+          colors: { brand: { 50:'#FFF7E6', 400:'#F4B740', 500:'#F59E0B', 600:'#D97706' } },
           boxShadow: {
             sm2: '0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.10)',
             xl2: '0 24px 48px rgba(2,8,23,.08)'
@@ -30,129 +35,119 @@
       }
     }
   </script>
-
-  <style>
+<style>
     .card { @apply rounded-2xl shadow-sm2 border border-gray-100 bg-white; }
-    .badge-up { @apply inline-flex items-center text-green-700 bg-green-50 px-2 py-0.5 rounded-full text-xs font-medium; }
-    .badge-down { @apply inline-flex items-center text-red-700 bg-red-50 px-2 py-0.5 rounded-full text-xs font-medium; }
     .stat { @apply text-gray-500 text-xs; }
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  <!-- Header -->
-  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3 font-semibold">
-        <img src="./assets/goldrates-black.png" alt="GoldRates" class="h-8 w-auto">
-      </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a class="hover:text-amber-600" href="index.html">Live Rates</a>
-        <a class="hover:text-amber-600" href="about.html">About</a>
-        <a class="hover:text-amber-600" href="contact.html">Contact</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <!-- Hero -->
-    <section class="bg-gradient-to-br from-amber-500 to-amber-600 text-white">
-      <div class="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14 grid md:grid-cols-2 gap-10 items-center">
-        <div>
-          <h1 class="text-3xl md:text-5xl font-bold tracking-tight leading-tight">Real-Time Gold Rates<br class="hidden sm:block"/> Across All Karats</h1>
-          <p class="mt-3 text-white/90 max-w-xl">Live prices for 24K, 22K, 18K, 14K with currency conversion. Track trends and calculate value instantly.</p>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a href="#live" class="bg-white text-amber-700 font-medium px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition">View Live Rates</a>
-            <!-- Modal trigger -->
-            <button id="openCalc" class="bg-amber-700/60 hover:bg-amber-700/75 border border-white/20 font-medium px-4 py-2 rounded-lg transition">
+<!-- Header -->
+<header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-gray-100">
+<div class="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
+<a class="flex items-center gap-3 font-semibold" href="index.html">
+<img alt="GoldRates" class="h-8 w-auto" src="./assets/goldrates-black.png"/>
+</a>
+<nav class="hidden md:flex items-center gap-6 text-sm">
+<a class="hover:text-amber-600" href="index.html">Live Rates</a>
+<a class="hover:text-amber-600" href="about.html">About</a>
+<a class="hover:text-amber-600" href="contact.html">Contact</a>
+</nav>
+</div>
+</header>
+<main>
+<!-- Hero -->
+<section class="bg-gradient-to-br from-amber-500 to-amber-600 text-white">
+<div class="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14 grid md:grid-cols-2 gap-10 items-center">
+<div>
+<h1 class="text-3xl md:text-5xl font-bold tracking-tight leading-tight">
+            Real-Time Gold Rates<br class="hidden sm:block"/> Across All Karats
+          </h1>
+<p class="mt-3 text-white/90 max-w-xl">Live prices for 24K, 22K, 18K, 14K with currency conversion. Track trends and calculate value instantly.</p>
+<div class="mt-6 flex flex-wrap gap-3">
+<a class="bg-white text-amber-700 font-medium px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition" href="#live">View Live Rates</a>
+<button class="bg-amber-700/60 hover:bg-amber-700/75 border border-white/20 font-medium px-4 py-2 rounded-lg transition" id="openCalc">
               Open Calculator
             </button>
-          </div>
-        </div>
-
-        <!-- Compact stats -->
-        <div class="grid grid-cols-2 gap-4">
-          <div class="card p-4 bg-white/10 border-white/10 text-white">
-            <div class="text-xs opacity-80">24K Gold (USD/gram)</div>
-            <div id="stat-24k" class="text-2xl font-semibold mt-1">—</div>
-          </div>
-          <div class="card p-4 bg-white/10 border-white/10 text-white">
-            <div class="text-xs opacity-80">22K Gold (USD/gram)</div>
-            <div id="stat-22k" class="text-2xl font-semibold mt-1">—</div>
-          </div>
-          <div class="card p-4 bg-white/10 border-white/10 text-white col-span-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs opacity-80">Spot XAUUSD (per ounce)</span>
-              <span id="stat-spot-ch" class="stat">—</span>
-            </div>
-            <div id="stat-spot" class="text-2xl font-semibold mt-1">—</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Live Rates -->
-    <section id="live" class="max-w-7xl mx-auto px-4 md:px-6 py-10">
-      <div class="flex items-end justify-between">
-        <h2 class="text-2xl font-bold">Live Gold Rates</h2>
-        <div class="text-sm text-gray-500">Updated every minute • Last update: <span id="last-update">—</span></div>
-      </div>
-
-      <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="card p-5 hover:shadow-xl2 transition">
-          <div class="text-sm text-gray-500">24K Gold</div>
-          <div id="card-24k" class="text-2xl font-semibold mt-1">—</div>
-          <div id="card-24k-ch" class="mt-1 text-xs text-gray-500">—</div>
-        </div>
-        <div class="card p-5 hover:shadow-xl2 transition">
-          <div class="text-sm text-gray-500">22K Gold</div>
-          <div id="card-22k" class="text-2xl font-semibold mt-1">—</div>
-          <div id="card-22k-ch" class="mt-1 text-xs text-gray-500">—</div>
-        </div>
-        <div class="card p-5 hover:shadow-xl2 transition">
-          <div class="text-sm text-gray-500">18K Gold</div>
-          <div id="card-18k" class="text-2xl font-semibold mt-1">—</div>
-          <div id="card-18k-ch" class="mt-1 text-xs text-gray-500">—</div>
-        </div>
-        <div class="card p-5 hover:shadow-xl2 transition">
-          <div class="text-sm text-gray-500">14K Gold</div>
-          <div id="card-14k" class="text-2xl font-semibold mt-1">—</div>
-          <div id="card-14k-ch" class="mt-1 text-xs text-gray-500">—</div>
-        </div>
-      </div>
-
-      <!-- Currency selector -->
-      <div class="mt-6 flex flex-wrap items-center gap-2">
-        <label class="text-sm text-gray-600">Currency:</label>
-        <select id="currency" class="border rounded-lg px-3 py-2 text-sm">
-          <option value="USD" selected>USD</option>
-          <option value="AED">AED</option>
-          <option value="INR">INR</option>
-          <option value="EUR">EUR</option>
-          <option value="GBP">GBP</option>
-          <option value="CNY">CNY</option>
-          <option value="SAR">SAR</option>
-          <option value="AUD">AUD</option>
-          <option value="CAD">CAD</option>
-          <option value="PKR">PKR</option>
-        </select>
-        <span id="fx-note" class="text-xs text-gray-500">Converted from USD via live FX.</span>
-
-        <!-- Quick Calculator button (opens modal) -->
-        <button id="openCalc2" class="ml-auto text-sm text-white bg-amber-500 hover:bg-amber-600 px-3 py-2 rounded-lg">
+</div>
+</div>
+<!-- Compact stats -->
+<div class="grid grid-cols-2 gap-4">
+<div class="card p-4 bg-white/10 border-white/10 text-white">
+<div class="text-xs opacity-80">24K Gold (USD/gram)</div>
+<div class="text-2xl font-semibold mt-1 tabular-nums" id="stat-24k">—</div>
+</div>
+<div class="card p-4 bg-white/10 border-white/10 text-white">
+<div class="text-xs opacity-80">22K Gold (USD/gram)</div>
+<div class="text-2xl font-semibold mt-1 tabular-nums" id="stat-22k">—</div>
+</div>
+<div class="card p-4 bg-white/10 border-white/10 text-white col-span-2">
+<div class="flex items-center justify-between">
+<span class="text-xs opacity-80">Spot XAUUSD (per ounce)</span>
+<span class="stat" id="stat-spot-ch">—</span>
+</div>
+<div class="text-2xl font-semibold mt-1 tabular-nums" id="stat-spot">—</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Live Rates -->
+<section class="max-w-7xl mx-auto px-4 md:px-6 py-10" id="live">
+<div class="flex items-end justify-between">
+<h2 class="text-2xl font-bold">Live Gold Rates</h2>
+<div class="text-sm text-gray-500">Updated every minute • Last update: <span id="last-update">—</span></div>
+</div>
+<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+<div class="card p-5 hover:shadow-xl2 transition">
+<div class="text-sm text-gray-500">24K Gold</div>
+<div class="text-2xl font-semibold mt-1 tabular-nums" id="card-24k">—</div>
+<div class="mt-1 text-xs text-gray-500" id="card-24k-ch">—</div>
+</div>
+<div class="card p-5 hover:shadow-xl2 transition">
+<div class="text-sm text-gray-500">22K Gold</div>
+<div class="text-2xl font-semibold mt-1 tabular-nums" id="card-22k">—</div>
+<div class="mt-1 text-xs text-gray-500" id="card-22k-ch">—</div>
+</div>
+<div class="card p-5 hover:shadow-xl2 transition">
+<div class="text-sm text-gray-500">18K Gold</div>
+<div class="text-2xl font-semibold mt-1 tabular-nums" id="card-18k">—</div>
+<div class="mt-1 text-xs text-gray-500" id="card-18k-ch">—</div>
+</div>
+<div class="card p-5 hover:shadow-xl2 transition">
+<div class="text-sm text-gray-500">14K Gold</div>
+<div class="text-2xl font-semibold mt-1 tabular-nums" id="card-14k">—</div>
+<div class="mt-1 text-xs text-gray-500" id="card-14k-ch">—</div>
+</div>
+</div>
+<!-- Currency selector -->
+<div class="mt-6 flex flex-wrap items-center gap-2">
+<label class="text-sm text-gray-600">Currency:</label>
+<select class="border rounded-lg px-3 py-2 text-sm" id="currency">
+<option selected="" value="USD">USD</option>
+<option value="AED">AED</option>
+<option value="INR">INR</option>
+<option value="EUR">EUR</option>
+<option value="GBP">GBP</option>
+<option value="CNY">CNY</option>
+<option value="SAR">SAR</option>
+<option value="AUD">AUD</option>
+<option value="CAD">CAD</option>
+<option value="PKR">PKR</option>
+</select>
+<span class="text-xs text-gray-500" id="fx-note">Converted from USD via live FX.</span>
+<!-- Quick Calculator button -->
+<button class="ml-auto text-sm text-white bg-amber-500 hover:bg-amber-600 px-3 py-2 rounded-lg" id="openCalc2">
           Open Calculator
         </button>
-      </div>
-    </section>
-
-    <!-- Trends -->
-    <section class="max-w-7xl mx-auto px-4 md:px-6 pb-10">
-      <h2 class="text-2xl font-bold">Market Trends & Analysis</h2>
-      <div class="grid md:grid-cols-3 gap-4 mt-4">
-        <div class="card p-6 md:col-span-2">
-          <div class="h-80 bg-amber-50 border border-amber-100 rounded-lg flex items-center justify-center text-amber-700">
-            <!-- TradingView Widget -->
-            <div class="tradingview-widget-container w-full h-full">
-              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
+</div>
+</section>
+<!-- Trends -->
+<section class="max-w-7xl mx-auto px-4 md:px-6 pb-10">
+<h2 class="text-2xl font-bold">Market Trends &amp; Analysis</h2>
+<div class="grid md:grid-cols-3 gap-4 mt-4">
+<div class="card p-6 md:col-span-2">
+<div class="h-80 bg-amber-50 border border-amber-100 rounded-lg flex items-center justify-center text-amber-700">
+<div class="tradingview-widget-container w-full h-full">
+<script async="" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" type="text/javascript">
               {
                 "symbols": [["OANDA:XAUUSD|1D|USD"]],
                 "chartType": "area",
@@ -162,142 +157,133 @@
                 "hideSymbolLogo": true
               }
               </script>
-            </div>
-          </div>
-        </div>
-        <div class="space-y-4">
-          <div class="card p-5">
-            <div class="text-sm text-gray-500 mb-1">Market Statistics</div>
-            <ul class="text-sm text-gray-600 space-y-1">
-              <li>Open: <span id="stat-open">—</span></li>
-              <li>High: <span id="stat-high">—</span></li>
-              <li>Low: <span id="stat-low">—</span></li>
-            </ul>
-          </div>
-          <div class="card p-5">
-            <div class="text-sm text-gray-500 mb-1">Market Sentiment</div>
-            <div id="sentiment" class="text-lg font-semibold">—</div>
-            <div class="text-xs text-gray-500">Based on intraday change.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="border-t border-gray-200 bg-white">
-    <div class="max-w-7xl mx-auto px-4 md:px-6 py-10 grid gap-6 md:grid-cols-4">
-      <div>
-        <div class="font-semibold mb-2">GoldRates.com</div>
-        <p class="text-sm text-gray-500">Your trusted source for real-time gold prices and market insights.</p>
-      </div>
-      <div>
-        <div class="font-semibold mb-2">Products</div>
-        <ul class="text-sm text-gray-500 space-y-1">
-          <li><a href="index.html" class="hover:text-amber-600">Live Rates</a></li>
-          <li><button id="openCalc3" class="hover:text-amber-600">Price Calculator</button></li>
-          <li><a href="#" class="hover:text-amber-600">Historical Data</a></li>
-          <li><a href="#" class="hover:text-amber-600">Market Analysis</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="font-semibold mb-2">Resources</div>
-        <ul class="text-sm text-gray-500 space-y-1">
-          <li><a href="#" class="hover:text-amber-600">Gold News</a></li>
-          <li><a href="#" class="hover:text-amber-600">Market Reports</a></li>
-          <li><a href="#" class="hover:text-amber-600">Investment Guide</a></li>
-          <li><a href="#" class="hover:text-amber-600">API Documentation</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="font-semibold mb-2">Company</div>
-        <ul class="text-sm text-gray-500 space-y-1">
-          <li><a href="about.html" class="hover:text-amber-600">About Us</a></li>
-          <li><a href="contact.html" class="hover:text-amber-600">Contact</a></li>
-          <li><a href="#" class="hover:text-amber-600">Privacy Policy</a></li>
-          <li><a href="#" class="hover:text-amber-600">Terms of Service</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="text-center text-xs text-gray-500 pb-8">© 2025 GoldRates.com. All rights reserved.</div>
-  </footer>
-
-  <!-- ===== Calculator Modal ===== -->
-  <div id="calcModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-black/40 backdrop-blur-[2px]" aria-hidden="true"></div>
-
-    <div class="relative mx-auto max-w-3xl p-4 min-h-screen flex items-center justify-center">
-      <div class="w-full rounded-2xl bg-white shadow-xl2 border border-gray-100 overflow-hidden
-                  transition transform scale-95 opacity-0 duration-200"
-           id="calcDialog" role="dialog" aria-modal="true" aria-labelledby="calcTitle">
-        <div class="flex items-center justify-between px-5 py-4 border-b">
-          <h3 id="calcTitle" class="text-lg font-semibold">Price Calculator</h3>
-          <button id="closeCalc" class="p-2 rounded-lg hover:bg-gray-100" aria-label="Close calculator">
-            ✕
-          </button>
-        </div>
-
-        <div class="p-5">
-          <div class="grid md:grid-cols-5 gap-3">
-            <div>
-              <label class="block text-xs text-gray-500 mb-1">Gold Karat</label>
-              <select id="calc-karat" class="w-full border rounded-lg px-3 py-2 text-sm">
-                <option value="24">24K</option>
-                <option value="22">22K</option>
-                <option value="21">21K</option>
-                <option value="20">20K</option>
-                <option value="18">18K</option>
-                <option value="16">16K</option>
-                <option value="14">14K</option>
-                <option value="10">10K</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs text-gray-500 mb-1">Weight</label>
-              <input id="calc-weight" type="number" min="0" step="0.001" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Enter weight">
-            </div>
-            <div>
-              <label class="block text-xs text-gray-500 mb-1">Unit</label>
-              <select id="calc-unit" class="w-full border rounded-lg px-3 py-2 text-sm">
-                <option value="g">Gram</option>
-                <option value="oz">Ounce</option>
-                <option value="kg">Kilogram</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs text-gray-500 mb-1">Currency</label>
-              <select id="calc-currency" class="w-full border rounded-lg px-3 py-2 text-sm">
-                <option value="USD">USD</option>
-                <option value="AED">AED</option>
-                <option value="INR">INR</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-                <option value="CNY">CNY</option>
-                <option value="SAR">SAR</option>
-                <option value="AUD">AUD</option>
-                <option value="CAD">CAD</option>
-                <option value="PKR">PKR</option>
-              </select>
-            </div>
-            <div class="flex items-end">
-              <button id="btn-calc" class="w-full bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg">Calculate Value</button>
-            </div>
-          </div>
-
-          <div id="calc-result" class="mt-4 text-lg font-semibold">—</div>
-          <div class="text-xs text-gray-500 mt-1">
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="card p-5">
+<div class="text-sm text-gray-500 mb-1">Market Statistics</div>
+<ul class="text-sm text-gray-600 space-y-1">
+<li>Open: <span class="tabular-nums" id="stat-open">—</span></li>
+<li>High: <span class="tabular-nums" id="stat-high">—</span></li>
+<li>Low: <span class="tabular-nums" id="stat-low">—</span></li>
+</ul>
+</div>
+<div class="card p-5">
+<div class="text-sm text-gray-500 mb-1">Market Sentiment</div>
+<div class="text-lg font-semibold" id="sentiment">—</div>
+<div class="text-xs text-gray-500">Based on intraday change.</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="border-t border-gray-200 bg-white">
+<div class="max-w-7xl mx-auto px-4 md:px-6 py-10 grid gap-6 md:grid-cols-4">
+<div>
+<div class="font-semibold mb-2">GoldRates.com</div>
+<p class="text-sm text-gray-500">Your trusted source for real-time gold prices and market insights.</p>
+</div>
+<div>
+<div class="font-semibold mb-2">Products</div>
+<ul class="text-sm text-gray-500 space-y-1">
+<li><a class="hover:text-amber-600" href="index.html">Live Rates</a></li>
+<li><button class="hover:text-amber-600" id="openCalc3">Price Calculator</button></li>
+<li><a class="hover:text-amber-600" href="#">Historical Data</a></li>
+<li><a class="hover:text-amber-600" href="#">Market Analysis</a></li>
+</ul>
+</div>
+<div>
+<div class="font-semibold mb-2">Resources</div>
+<ul class="text-sm text-gray-500 space-y-1">
+<li><a class="hover:text-amber-600" href="#">Gold News</a></li>
+<li><a class="hover:text-amber-600" href="#">Market Reports</a></li>
+<li><a class="hover:text-amber-600" href="#">Investment Guide</a></li>
+<li><a class="hover:text-amber-600" href="#">API Documentation</a></li>
+</ul>
+</div>
+<div>
+<div class="font-semibold mb-2">Company</div>
+<ul class="text-sm text-gray-500 space-y-1">
+<li><a class="hover:text-amber-600" href="about.html">About Us</a></li>
+<li><a class="hover:text-amber-600" href="contact.html">Contact</a></li>
+<li><a class="hover:text-amber-600" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-amber-600" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="text-center text-xs text-gray-500 pb-8">© 2025 GoldRates.com. All rights reserved.</div>
+</footer>
+<!-- ===== Calculator Modal ===== -->
+<div class="fixed inset-0 z-50 hidden" id="calcModal">
+<div aria-hidden="true" class="absolute inset-0 bg-black/40 backdrop-blur-[2px]"></div>
+<div class="relative mx-auto max-w-3xl p-4 min-h-screen flex items-center justify-center">
+<div aria-labelledby="calcTitle" aria-modal="true" class="w-full rounded-2xl bg-white shadow-xl2 border border-gray-100 overflow-hidden transition transform scale-95 opacity-0 duration-200" id="calcDialog" role="dialog">
+<div class="flex items-center justify-between px-5 py-4 border-b">
+<h3 class="text-lg font-semibold" id="calcTitle">Price Calculator</h3>
+<button aria-label="Close calculator" class="p-2 rounded-lg hover:bg-gray-100" id="closeCalc">✕</button>
+</div>
+<div class="p-5">
+<div class="grid md:grid-cols-5 gap-3">
+<div>
+<label class="block text-xs text-gray-500 mb-1">Gold Karat</label>
+<select class="w-full border rounded-lg px-3 py-2 text-sm" id="calc-karat">
+<option value="24">24K</option>
+<option value="22">22K</option>
+<option value="21">21K</option>
+<option value="20">20K</option>
+<option value="18">18K</option>
+<option value="16">16K</option>
+<option value="14">14K</option>
+<option value="10">10K</option>
+</select>
+</div>
+<div>
+<label class="block text-xs text-gray-500 mb-1">Weight</label>
+<input class="w-full border rounded-lg px-3 py-2 text-sm" id="calc-weight" min="0" placeholder="Enter weight" step="0.001" type="number"/>
+</div>
+<div>
+<label class="block text-xs text-gray-500 mb-1">Unit</label>
+<select class="w-full border rounded-lg px-3 py-2 text-sm" id="calc-unit">
+<option value="g">Gram</option>
+<option value="oz">Ounce</option>
+<option value="kg">Kilogram</option>
+</select>
+</div>
+<div>
+<label class="block text-xs text-gray-500 mb-1">Currency</label>
+<select class="w-full border rounded-lg px-3 py-2 text-sm" id="calc-currency">
+<option value="USD">USD</option>
+<option value="AED">AED</option>
+<option value="INR">INR</option>
+<option value="EUR">EUR</option>
+<option value="GBP">GBP</option>
+<option value="CNY">CNY</option>
+<option value="SAR">SAR</option>
+<option value="AUD">AUD</option>
+<option value="CAD">CAD</option>
+<option value="PKR">PKR</option>
+</select>
+</div>
+<div class="flex items-end">
+<button class="w-full bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg" id="btn-calc">
+                Calculate Value
+              </button>
+</div>
+</div>
+<div class="mt-4 text-lg font-semibold" id="calc-result">—</div>
+<div class="text-xs text-gray-500 mt-1">
             Note: API price is per ounce; calculations use provided per-gram karat prices when available. 1 oz = 31.1034768 g.
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Your API logic -->
-  <script src="js/main.js"></script>
-
-  <!-- Modal logic (small, dependency-free, accessible-ish) -->
-  <script>
+</div>
+</div>
+</div>
+</div>
+<!-- App logic -->
+<script src="js/main.js"></script>
+<!-- Modal behavior -->
+<script>
     const modal = document.getElementById('calcModal');
     const dialog = document.getElementById('calcDialog');
     const openers = [document.getElementById('openCalc'), document.getElementById('openCalc2'), document.getElementById('openCalc3')].filter(Boolean);
@@ -309,7 +295,6 @@
         dialog.classList.remove('opacity-0','scale-95');
         dialog.classList.add('opacity-100','scale-100');
       });
-      // focus first input for faster calc
       setTimeout(() => document.getElementById('calc-weight')?.focus(), 150);
     }
     function closeModal() {
@@ -322,7 +307,7 @@
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     window.addEventListener('keydown', (e) => { if (!modal.classList.contains('hidden') && e.key === 'Escape') closeModal(); });
 
-    // If user clicks the hero “Price Calculator” anchor, open modal instead of jump
+    // open modal if any anchor points to "#calculator"
     document.querySelectorAll('a[href="#calculator"]').forEach(a => {
       a.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
     });
