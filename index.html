@@ -2,26 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>GoldRates — Live Gold Prices & Calculator</title>
   <meta name="description" content="Real-time gold prices across karats with currency converter and price calculator.">
+
+  <!-- Pass API endpoint here (preferred). Put your full URL -->
+  <meta name="gold-api" content="https://goldapi-my1rlotopzv3-io">
+
+  <!-- Basic security hardening -->
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' https:; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https:; script-src 'self' https://cdn.tailwindcss.com https://s3.tradingview.com 'unsafe-inline'; connect-src 'self' https:; frame-ancestors 'self';">
+
   <link rel="icon" href="assets/favicon.png">
 
-  <!-- Inter font (clean, modern) -->
+  <!-- Inter font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CDN -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
         extend: {
-          colors: {
-            brand: { 50:'#FFF7E6', 100:'#FCEFD6', 400:'#F4B740', 500:'#F59E0B', 600:'#D97706' }
-          },
+          colors: { brand: { 50:'#FFF7E6', 400:'#F4B740', 500:'#F59E0B', 600:'#D97706' } },
           boxShadow: {
             sm2: '0 1px 2px rgba(16,24,40,.06), 0 1px 3px rgba(16,24,40,.10)',
             xl2: '0 24px 48px rgba(2,8,23,.08)'
@@ -30,11 +41,8 @@
       }
     }
   </script>
-
   <style>
     .card { @apply rounded-2xl shadow-sm2 border border-gray-100 bg-white; }
-    .badge-up { @apply inline-flex items-center text-green-700 bg-green-50 px-2 py-0.5 rounded-full text-xs font-medium; }
-    .badge-down { @apply inline-flex items-center text-red-700 bg-red-50 px-2 py-0.5 rounded-full text-xs font-medium; }
     .stat { @apply text-gray-500 text-xs; }
   </style>
 </head>
@@ -58,11 +66,12 @@
     <section class="bg-gradient-to-br from-amber-500 to-amber-600 text-white">
       <div class="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-14 grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <h1 class="text-3xl md:text-5xl font-bold tracking-tight leading-tight">Real-Time Gold Rates<br class="hidden sm:block"/> Across All Karats</h1>
+          <h1 class="text-3xl md:text-5xl font-bold tracking-tight leading-tight">
+            Real-Time Gold Rates<br class="hidden sm:block"> Across All Karats
+          </h1>
           <p class="mt-3 text-white/90 max-w-xl">Live prices for 24K, 22K, 18K, 14K with currency conversion. Track trends and calculate value instantly.</p>
           <div class="mt-6 flex flex-wrap gap-3">
             <a href="#live" class="bg-white text-amber-700 font-medium px-4 py-2 rounded-lg shadow-sm hover:shadow-md transition">View Live Rates</a>
-            <!-- Modal trigger -->
             <button id="openCalc" class="bg-amber-700/60 hover:bg-amber-700/75 border border-white/20 font-medium px-4 py-2 rounded-lg transition">
               Open Calculator
             </button>
@@ -137,7 +146,7 @@
         </select>
         <span id="fx-note" class="text-xs text-gray-500">Converted from USD via live FX.</span>
 
-        <!-- Quick Calculator button (opens modal) -->
+        <!-- Quick Calculator button -->
         <button id="openCalc2" class="ml-auto text-sm text-white bg-amber-500 hover:bg-amber-600 px-3 py-2 rounded-lg">
           Open Calculator
         </button>
@@ -150,7 +159,6 @@
       <div class="grid md:grid-cols-3 gap-4 mt-4">
         <div class="card p-6 md:col-span-2">
           <div class="h-80 bg-amber-50 border border-amber-100 rounded-lg flex items-center justify-center text-amber-700">
-            <!-- TradingView Widget -->
             <div class="tradingview-widget-container w-full h-full">
               <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
               {
@@ -232,9 +240,7 @@
            id="calcDialog" role="dialog" aria-modal="true" aria-labelledby="calcTitle">
         <div class="flex items-center justify-between px-5 py-4 border-b">
           <h3 id="calcTitle" class="text-lg font-semibold">Price Calculator</h3>
-          <button id="closeCalc" class="p-2 rounded-lg hover:bg-gray-100" aria-label="Close calculator">
-            ✕
-          </button>
+          <button id="closeCalc" class="p-2 rounded-lg hover:bg-gray-100" aria-label="Close calculator">✕</button>
         </div>
 
         <div class="p-5">
@@ -280,7 +286,9 @@
               </select>
             </div>
             <div class="flex items-end">
-              <button id="btn-calc" class="w-full bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg">Calculate Value</button>
+              <button id="btn-calc" class="w-full bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg">
+                Calculate Value
+              </button>
             </div>
           </div>
 
@@ -293,10 +301,10 @@
     </div>
   </div>
 
-  <!-- Your API logic -->
+  <!-- App logic -->
   <script src="js/main.js"></script>
 
-  <!-- Modal logic (small, dependency-free, accessible-ish) -->
+  <!-- Modal behavior -->
   <script>
     const modal = document.getElementById('calcModal');
     const dialog = document.getElementById('calcDialog');
@@ -309,7 +317,6 @@
         dialog.classList.remove('opacity-0','scale-95');
         dialog.classList.add('opacity-100','scale-100');
       });
-      // focus first input for faster calc
       setTimeout(() => document.getElementById('calc-weight')?.focus(), 150);
     }
     function closeModal() {
@@ -322,7 +329,7 @@
     modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
     window.addEventListener('keydown', (e) => { if (!modal.classList.contains('hidden') && e.key === 'Escape') closeModal(); });
 
-    // If user clicks the hero “Price Calculator” anchor, open modal instead of jump
+    // open modal if any anchor points to "#calculator"
     document.querySelectorAll('a[href="#calculator"]').forEach(a => {
       a.addEventListener('click', (e) => { e.preventDefault(); openModal(); });
     });
